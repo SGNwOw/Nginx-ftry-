@@ -1,0 +1,22 @@
+version: "3.8"
+
+services:
+  flask1:
+    build: ./app
+    container_name: flask1
+    environment:
+      - FLASK_ENV=production
+
+  flask2:
+    build: ./app
+    container_name: flask2
+    environment:
+      - FLASK_ENV=production
+
+  nginx:
+    build: ./nginx
+    ports:
+      - "80:80"
+    depends_on:
+      - flask1
+      - flask2

@@ -1,0 +1,22 @@
+---
+- name: Deploy Flask + Nginx
+  hosts: web
+  become: yes
+
+  tasks:
+    - name: Install Docker and Docker Compose
+      apt:
+        name:
+          - docker.io
+          - docker-compose
+        update_cache: yes
+
+    - name: Clone repository
+      git:
+        repo: "https://github.com/sgnwow/Nginx-ftry-.git"
+        dest: /opt/flask-app
+
+    - name: Start containers with Docker Compose
+      command: docker-compose up -d
+      args:
+        chdir: /opt/flask-app
