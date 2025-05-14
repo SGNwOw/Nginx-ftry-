@@ -6,12 +6,16 @@ services:
     container_name: flask1
     environment:
       - FLASK_ENV=production
+    networks:  
+      - app_net
 
   flask2:
     build: ./app
     container_name: flask2
     environment:
       - FLASK_ENV=production
+    networks:  
+      - app_net
 
   nginx:
     build: ./nginx
@@ -20,3 +24,9 @@ services:
     depends_on:
       - flask1
       - flask2
+    networks:  
+      - app_net
+
+networks: 
+  app_net:
+    driver: bridge
